@@ -12,10 +12,11 @@ exports.handler = async (event, context) => {
         statusCode: 500,
     };
     try {
+        const { id } = event.pathParameters;
         const queryParams = {
             TableName: 'products',
             Key: {
-                id: { 'S': '12345' }
+                id: { 'S': id }
             }
         };
         const data = await documentClient.deleteItem(queryParams).promise();

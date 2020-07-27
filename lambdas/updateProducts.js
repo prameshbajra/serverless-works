@@ -12,14 +12,15 @@ exports.handler = async (event, context) => {
         statusCode: 500,
     };
     try {
+        const { id, productname } = JSON.parse(event.body);
         const queryParams = {
             TableName: 'products',
             Key: {
-                id: 'UkasjhdvHGajhdsf',
+                id: id,
             },
             UpdateExpression: "set productName=:productName",
             ExpressionAttributeValues: {
-                ":productName": "ASUS Vivobook Gaming F571GT i7 9th GEN"
+                ":productName": productname
             },
             ReturnValues: 'UPDATED_NEW'
         };

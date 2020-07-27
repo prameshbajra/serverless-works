@@ -12,11 +12,12 @@ exports.handler = async (event, context) => {
         statusCode: 500,
     };
     try {
+        const { id, productname } = JSON.parse(event.body);
         const queryParams = {
             TableName: 'products',
             Item: {
-                id: { 'S': '12345' },
-                productName: { 'S': 'Laptop' }
+                id: { 'S': id },
+                productName: { 'S': productname }
             }
         };
         const data = await documentClient.putItem(queryParams).promise();
