@@ -5,21 +5,21 @@ const documentClient = new AWS.DynamoDB();
 
 exports.handler = async (event, context) => {
     const responseObject = {
-        body: null,
+        body: 'Unable to perform this operation',
         headers: {
             'content-type': 'application/json'
         },
         statusCode: 500,
     };
     try {
+        const { id } = event.pathParameters;
         const queryParams = {
             TableName: 'products',
-            Item: {
-                id: { 'S': '12345' },
-                productName: { 'S': 'Laptop' }
+            Key: {
+                id: { 'S': id }
             }
         };
-        const data = await documentClient.putItem(queryParams).promise();
+        const data = await documentClient.deleteItem(queryParams).promise();
         responseObject.statusCode = 200;
         responseObject.body = JSON.stringify(data);
     } catch (err) {
