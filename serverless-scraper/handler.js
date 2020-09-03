@@ -1,7 +1,10 @@
 'use strict';
 
-const { getPage } = require('./controller/controller');
+const { getPage, parsePage } = require('./controller/controller');
 
-module.exports.hello = async event => {
-    getPage(event);
+module.exports.scrape = async event => {
+    console.log(event);
+    getPage(event).then((page) => {
+        parsePage(page);
+    });
 };
