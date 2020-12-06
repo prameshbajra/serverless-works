@@ -1,75 +1,32 @@
-service: YTBazraDownload
+service: yt-bazra-download
+frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: python3.8
   region: ap-south-1
 
 plugins:
-  - serverless-s3-sync
+  - serverless-finch
 
 custom:
-  bucketName: yt-bazra-download
-  s3Sync:
-      - bucketName: ${self:custom.bucketName}
-        localDir: yt-bazra-download/dist/yt-bazra-download/
+  client:
+    bucketName: yt-bazra-download
+    distributionFolder: frontend/dist/frontend/
+    errorDocument: index.html
 
-resources:
-  Resources:
-    YTBazraDownloadBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:custom.bucketName}
-        AccessControl: PublicRead
-        WebsiteConfiguration:
-          IndexDocument: index.html
-          ErrorDocument: index.html
-    
-    S3AccessPolicy:
-      Type: AWS::S3::BucketPolicy
-      Properties:
-        Bucket:
-            Ref: YTBazraDownloadBucket
-        PolicyDocument:
-          Statement:
-            - Sid: PublicReadGetObject
-              Effect: Allow
-              Principal: '*'
-              Action:
-                - s3:GetObject
-              Resource: arn:aws:s3:::${self:custom.bucketName}/*
-    
-    # CloudFrontDistribution:
-    #   Type: AWS::CloudFront::Distribution
-    #   Properties:
-    #     DistributionConfig:
-    #       Origins:
-    #         - DomainName: ${self:custom.bucketName}.s3.amazonaws.com
-    #           Id: YTBazraDownload
-    #           CustomOriginConfig:
-    #             HTTPPort: 80
-    #             HTTPSPort: 443
-    #             OriginProtocolPolicy: https-only
-    #     Enabled: 'true'
-    #     DefaultRootObject: index.html
-    #     CustomErrorResponses:
-    #       - ErrorCode: 404
-    #         ResponseCode: 200
-    #         ResponsePagePath: /index.html
-    #     DefaultCacheBehavior:
-    #       AllowedMethods:
-    #         - DELETE
-    #         - GET
-    #         - HEAD
-    #         - OPTIONS
-    #         - PATCH
-    #         - POST
-    #         - PUT
-    #       TargetOriginId: YTBazraDownload
-    #       ForwardedValues:
-    #           QueryString: 'false'
-    #           Cookies:
-    #               Forward: none
-    #       ViewerProtocolPolicy: redirect-to-https
-    #     ViewerCertificate:
-    #       CloudFrontDefaultCertificate: true
+functions:
+  hello:
+    handler: handler.hello
+
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
