@@ -3,30 +3,29 @@ frameworkVersion: '2'
 
 provider:
   name: aws
+  memorySize: 128
   runtime: python3.8
   region: ap-south-1
+  versionFunctions: false
 
 plugins:
   - serverless-finch
+  - serverless-python-requirements
 
 custom:
   client:
     bucketName: yt-bazra-download
     distributionFolder: frontend/dist/frontend/
     errorDocument: index.html
+    
+  pythonRequirements:
+    dockerizePip: non-linux
 
 functions:
-  hello:
-    handler: handler.hello
+  downloadThisUrl:
+    handler: backend/apis/handler.downloadThisUrl
+    events:
+      - http:
+          path: /downloadThisUrl
+          method: get
 
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
