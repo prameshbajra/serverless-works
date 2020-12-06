@@ -1,5 +1,4 @@
 import json
-import pytube
 
 
 def downloadThisUrl(event, context):

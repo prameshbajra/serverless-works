@@ -16,3 +16,8 @@ serverless deploy
 # Other time (use this from now on ) ...
 serverless deploy function -f <functionName>
 ```
+
+**To deploy python packages :**
+
+A plugin for serverless named (serverless-python-requirements) is used. 
+Read here - https://www.serverless.com/blog/serverless-python-packaging
