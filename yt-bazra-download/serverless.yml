@@ -1,5 +1,5 @@
 service: yt-bazra-download
-frameworkVersion: '2'
+frameworkVersion: "2"
 
 provider:
   name: aws
@@ -7,6 +7,13 @@ provider:
   runtime: python3.8
   region: ap-south-1
   versionFunctions: false
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:PutObject"
+        - "s3:GetObject"
+      Resource:
+        - "arn:aws:s3:::yt-bazra-download-content/*"
 
 plugins:
   - serverless-finch
@@ -17,15 +24,37 @@ custom:
     bucketName: yt-bazra-download
     distributionFolder: frontend/dist/frontend/
     errorDocument: index.html
-    
+
   pythonRequirements:
     dockerizePip: non-linux
 
 functions:
   downloadThisUrl:
     handler: backend/apis/handler.downloadThisUrl
+    timeout: 250
     events:
       - http:
           path: /downloadThisUrl
           method: get
 
+resources:
+  Resources:
+    YTBazraDownloadContent:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: yt-bazra-download-content
+
+    BucketPolicyForYTBazraDownloadContent:
+      Type: "AWS::S3::BucketPolicy"
+      Properties:
+        PolicyDocument:
+          Statement:
+            - Sid: PublicReadForGetBucketObjects
+              Effect: Allow
+              Principal: "*"
+              Action:
+                - "s3:GetObject"
+                - "s3:PutObject"
+              Resource: arn:aws:s3:::yt-bazra-download-content/*
+        Bucket:
+          Ref: YTBazraDownloadContent
