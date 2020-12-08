@@ -8,7 +8,7 @@ from pytube import YouTube, Stream
 
 def downloadThisUrl(event, context):
     '''
-    This is the lamba function for POST method which takes in a video URL and downloads it to s3.
+    This is the lamba function for POST method which takes in a video URL and returns a s3 download URL.
     '''
     try:
         s3 = boto3.client('s3')

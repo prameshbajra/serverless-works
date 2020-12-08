@@ -28,6 +28,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
                             "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
                             "src/theme.less",
                             "src/styles.scss"
@@ -94,6 +95,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
                             "src/styles.scss"
                         ],
                         "scripts": []
