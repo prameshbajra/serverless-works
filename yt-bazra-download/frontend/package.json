@@ -12,13 +12,16 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~10.0.6",
+    "@angular/cdk": "^11.0.2",
     "@angular/common": "~10.0.6",
     "@angular/compiler": "~10.0.6",
     "@angular/core": "~10.0.6",
+    "@angular/flex-layout": "^11.0.0-beta.33",
     "@angular/forms": "~10.0.6",
     "@angular/platform-browser": "~10.0.6",
     "@angular/platform-browser-dynamic": "~10.0.6",
     "@angular/router": "~10.0.6",
+    "ng-zorro-antd": "^10.2.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
