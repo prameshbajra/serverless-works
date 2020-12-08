@@ -31,11 +31,11 @@ custom:
 functions:
   downloadThisUrl:
     handler: backend/apis/handler.downloadThisUrl
-    timeout: 250
+    timeout: 300
     events:
       - http:
           path: /downloadThisUrl
-          method: get
+          method: POST
 
 resources:
   Resources:
