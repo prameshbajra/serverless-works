@@ -1,15 +1,38 @@
 .home-container {
   .application-details-row {
-    h1{
-        color: white;
-        font-size: 4em;
-        text-decoration: overline;
+    h1 {
+      color: white;
+      font-size: 4em;
+      text-decoration: overline;
     }
   }
+
   .image-row {
     img {
       margin-top: 5vh;
       height: 200px;
+    }
+  }
+
+  .text-items {
+    margin-bottom: 1%;
+    font-size: 18px;
+    color: white;
+  }
+
+  .url-field-items {
+    width: 51%;
+
+    input {
+      border-color: white;
+      background: transparent;
+      color: white;
+    }
+
+    .download-button {
+      background: white;
+      color: #868686;
+      border: 1px solid white;
     }
   }
 }

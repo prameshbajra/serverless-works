@@ -5,7 +5,20 @@
     <div fxLayout="row" fxLayoutAlign="center center" class="application-details-row">
         <h1>Youtube Downloader</h1>
     </div>
-    <div fxLayout="row" fxLayoutAlign="center center" class="url-field-items">
-    
+    <div fxLayout="row" fxLayoutAlign="center center" class="text-items">
+        <span>Drop the link for the youtube video you want to download</span>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="row" fxLayoutAlign="center center" class="url-field-items">
+            <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+                <input type="text" nz-input #urlElement [(ngModel)]="urlValue" />
+            </nz-input-group>
+            <ng-template #suffixButton>
+                <button nz-button nzType="primary" nzSize="large" nzSearch class="download-button"
+                    (click)="onDownloadClick($event)">
+                    Download
+                </button>
+            </ng-template>
+            </div>
     </div>
 </div>
