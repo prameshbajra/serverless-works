@@ -28,8 +28,11 @@ export class HomeComponent implements OnInit {
                 "videoUrl": this.urlValue
             }
             this.httpService.downloadUrlLinkRequest(requestBody).subscribe(result => {
-                console.log(result);
+                const downloadUrl = result["videoDownloadUrl"];
+                window.open(downloadUrl, "_blank");
+                this.isLoading = false;
             }, error => {
+                    this.isLoading = false;
                 console.error(error);
             });
         }
