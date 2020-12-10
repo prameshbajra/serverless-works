@@ -10,15 +10,17 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="center center">
         <div fxLayout="row" fxLayoutAlign="center center" class="url-field-items">
-            <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-                <input type="text" nz-input #urlElement [(ngModel)]="urlValue" />
-            </nz-input-group>
-            <ng-template #suffixButton>
-                <button nz-button nzType="primary" nzSize="large" nzSearch class="download-button"
-                    (click)="onDownloadClick($event)">
-                    Download
-                </button>
-            </ng-template>
+            <nz-spin [nzSpinning]="isLoading">
+                <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+                    <input type="text" nz-input #urlElement [(ngModel)]="urlValue" />
+                </nz-input-group>
+                <ng-template #suffixButton>
+                    <button nz-button nzType="primary" nzSize="large" nzSearch class="download-button"
+                        (click)="onDownloadClick($event)">
+                        Download
+                    </button>
+                </ng-template>
+            </nz-spin>
             </div>
     </div>
 </div>

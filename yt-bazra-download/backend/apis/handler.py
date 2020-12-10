@@ -22,16 +22,32 @@ def downloadThisUrl(event, context):
         videoStream.download(f"/tmp/")
         s3.upload_file(f"/tmp/{videoFileName}", "yt-bazra-download-content",
                        videoFileName)
-        videoDownloadUrl = s3.generate_presigned_url('get_object',
-                                        Params={
-                                            'Bucket':
-                                            "yt-bazra-download-content",
-                                            'Key': videoFileName
-                                        },
-                                        ExpiresIn=300)
+        videoDownloadUrl = s3.generate_presigned_url(
+            'get_object',
+            Params={
+                'Bucket': "yt-bazra-download-content",
+                'Key': videoFileName
+            },
+            ExpiresIn=300)
+        headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": True,
+        }
         body = {"message": "Success.", "videoDownloadUrl": videoDownloadUrl}
-        response = {"statusCode": 200, "body": json.dumps(body)}
+        response = {
+            "statusCode": 200,
+            "headers": headers,
+            "body": json.dumps(body)
+        }
         return response
     except Exception as e:
         print(traceback.format_exc())
-        return {"statusCode": 500, "body": traceback.format_exc()}
+        headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": True,
+        }
+        return {
+            "statusCode": 500,
+            "headers": headers,
+            "body": traceback.format_exc()
+        }

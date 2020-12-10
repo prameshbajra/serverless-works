@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { HttpService } from '../../http.service';
 
 @Component({
     selector: 'app-home',
@@ -10,23 +11,28 @@ export class HomeComponent implements OnInit {
     @ViewChild('urlElement') urlElement: ElementRef;
 
     urlValue = "";
+    isLoading: boolean = false;
 
-    constructor() { }
+    constructor(private httpService: HttpService) { }
 
     ngOnInit(): void {
         setTimeout(() => {
             this.urlElement.nativeElement.focus();
-            navigator.clipboard.readText().then(text => {
-                this.urlValue = text;
-            }).catch(err => {
-                console.error('Failed to read clipboard contents: ', err);
-            });
         }, 300);
     }
 
     async onDownloadClick(event: any) {
-        console.log(event);
-        console.log(this.urlValue);
+        if (this.urlValue.includes('youtube')) {
+            this.isLoading = true;
+            const requestBody = {
+                "videoUrl": this.urlValue
+            }
+            this.httpService.downloadUrlLinkRequest(requestBody).subscribe(result => {
+                console.log(result);
+            }, error => {
+                console.error(error);
+            });
+        }
     }
 
 }

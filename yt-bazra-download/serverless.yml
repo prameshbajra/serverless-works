@@ -3,7 +3,6 @@ frameworkVersion: "2"
 
 provider:
   name: aws
-  memorySize: 128
   runtime: python3.8
   region: ap-south-1
   versionFunctions: false
@@ -14,6 +13,13 @@ provider:
         - "s3:GetObject"
       Resource:
         - "arn:aws:s3:::yt-bazra-download-content/*"
+
+package:
+  individually: true
+  exclude:
+      - node_modules/**
+      - frontend/node_modules/**
+      - venv/**
 
 plugins:
   - serverless-finch
@@ -31,11 +37,12 @@ custom:
 functions:
   downloadThisUrl:
     handler: backend/apis/handler.downloadThisUrl
-    timeout: 300
+    timeout: 30 # Cannot be more than 30s as API gateway restricts it ...
     events:
       - http:
           path: /downloadThisUrl
           method: POST
+          cors: true
 
 resources:
   Resources:

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -12,11 +13,13 @@ import { MatInputModule } from '@angular/material/input';
         MatButtonModule,
         MatIconModule,
         MatInputModule,
+        MatTooltipModule
     ],
     exports: [
         MatButtonModule,
         MatIconModule,
-        MatInputModule
+        MatInputModule,
+        MatTooltipModule     
     ]
 })
 export class MaterialModule { }

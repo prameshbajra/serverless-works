@@ -5,6 +5,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+
 
 
 @NgModule({
@@ -15,14 +17,16 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
         NzGridModule,
         NzIconModule,
         NzInputModule,
-        NzLayoutModule
+        NzLayoutModule,
+        NzSpinModule
     ],
     exports: [
         NzButtonModule,
         NzGridModule,
         NzIconModule,
         NzInputModule,
-        NzLayoutModule
+        NzLayoutModule,
+        NzSpinModule
     ]
 })
 export class AntDesignModule { }
