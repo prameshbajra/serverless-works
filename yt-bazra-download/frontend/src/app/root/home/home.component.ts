@@ -31,8 +31,10 @@ export class HomeComponent implements OnInit {
                 const downloadUrl = result["videoDownloadUrl"];
                 window.open(downloadUrl, "_blank");
                 this.isLoading = false;
-            }, error => {
-                    this.isLoading = false;
+                this.urlValue = "";
+            }, (error) => {
+                this.urlValue = "";
+                this.isLoading = false;
                 console.error(error);
             });
         }
