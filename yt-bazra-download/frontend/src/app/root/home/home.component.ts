@@ -1,10 +1,22 @@
+import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from '../../http.service';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: ['./home.component.scss'],
+    animations: [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateY(-100%)' }),
+                animate('500ms ease-in', style({ transform: 'translateY(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('500ms ease-in', style({ transform: 'translateY(-100%)' }))
+            ])
+        ])
+    ]
 })
 export class HomeComponent implements OnInit {
 
@@ -12,6 +24,7 @@ export class HomeComponent implements OnInit {
 
     urlValue = "";
     isLoading: boolean = false;
+    errorMessage: string = "";
 
     constructor(private httpService: HttpService) { }
 
@@ -21,8 +34,14 @@ export class HomeComponent implements OnInit {
         }, 300);
     }
 
+    isErrorPreset(): boolean {
+        return this.errorMessage.length > 0;
+    }
+
     async onDownloadClick(event: any) {
-        if (this.urlValue.includes('youtube')) {
+        this.errorMessage = "";
+        const youtubeRegex = new RegExp("^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+");
+        if (youtubeRegex.test(this.urlValue)) {
             this.isLoading = true;
             const requestBody = {
                 "videoUrl": this.urlValue
@@ -37,6 +56,8 @@ export class HomeComponent implements OnInit {
                 this.isLoading = false;
                 console.error(error);
             });
+        } else {
+            this.errorMessage = "Please enter a valid Youtube URL."
         }
     }
 

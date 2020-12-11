@@ -1,4 +1,8 @@
 .home-container {
+    .main-content {
+        min-height: calc(100vh - 60px);
+    }
+
   .application-details-row {
     h1 {
       color: white;
@@ -35,5 +39,20 @@
       color: #868686;
       border: 1px solid white;
     }
+  }
+
+  .error-row{
+    color: white;  
+    margin-top: 1%;
+  }
+
+  .contrib-row{
+      bottom:0;
+      color: white;
+
+      a{
+          color: white;
+          text-decoration: underline;
+      }
   }
 }

@@ -1,26 +1,39 @@
-<div class="home-container">
-    <div fxLayout="row" fxLayoutAlign="center center" class="image-row">
-        <img src="../../../assets/youtube-rounded.svg" alt="">
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center center" class="application-details-row">
-        <h1>Youtube Downloader</h1>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center center" class="text-items">
-        <span>Drop the link for the youtube video you want to download</span>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <div fxLayout="row" fxLayoutAlign="center center" class="url-field-items">
-            <nz-spin [nzSpinning]="isLoading">
-                <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-                    <input type="text" nz-input #urlElement [(ngModel)]="urlValue" />
-                </nz-input-group>
-                <ng-template #suffixButton>
-                    <button nz-button nzType="primary" nzSize="large" nzSearch class="download-button"
-                        (click)="onDownloadClick($event)">
-                        Download
-                    </button>
-                </ng-template>
-            </nz-spin>
+<div class="home-container" [@slideInOut]>
+    <div class="main-content">
+        <div fxLayout="row" fxLayoutAlign="center center" class="image-row">
+            <img src="../../../assets/youtube-rounded.svg" alt="">
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="application-details-row">
+            <h1>Youtube Downloader</h1>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="text-items">
+            <span>Drop the link for the youtube video you want to download</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="row" fxLayoutAlign="center center" class="url-field-items">
+                <nz-spin [nzSpinning]="isLoading">
+                    <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+                        <input type="text" nz-input #urlElement [(ngModel)]="urlValue" (keyup.enter)="onDownloadClick()" />
+                    </nz-input-group>
+                    <ng-template #suffixButton>
+                        <button nz-button nzType="primary" nzSize="large" nzSearch class="download-button"
+                            (click)="onDownloadClick()">
+                            Download
+                        </button>
+                    </ng-template>
+                </nz-spin>
             </div>
-    </div>
+        </div>
+        <div [@slideInOut] fxLayout="row" fxLayoutAlign="center center" class="error-row" *ngIf="isErrorPreset()">
+            {{errorMessage}}
+        </div>
+        </div>
+        <div class="contrib-row">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                Made with ❣️ by
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <a href="http://prameshbajra.github.io/" target="_blank"> Pramesh Bajracharya</a>
+            </div>
+        </div>
 </div>
