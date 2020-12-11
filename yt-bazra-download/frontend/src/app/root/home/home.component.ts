@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
         return this.errorMessage.length > 0;
     }
 
-    async onDownloadClick(event: any) {
+    async onDownloadClick() {
         this.errorMessage = "";
         const youtubeRegex = new RegExp("^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+");
         if (youtubeRegex.test(this.urlValue)) {
