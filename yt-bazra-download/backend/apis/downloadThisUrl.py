@@ -8,8 +8,9 @@ from pytube import YouTube, Stream
 
 def downloadThisUrl(event, context):
     '''
-    This is the lamba function for POST method which takes in a video URL and returns a s3 download URL.
+    Lambda for POST method which takes in a video URL and returns a s3 download URL.
     '''
+    # This header needs to be returned in response for client purposes (Preflight request and CORS policies)
     headers = {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": True,
@@ -19,9 +20,18 @@ def downloadThisUrl(event, context):
 
         requestBody = json.loads(event["body"])
         videoUrl = requestBody["videoUrl"]
+        downloadResolution = None
 
         youtubeVideo = YouTube(videoUrl)
-        videoStream = youtubeVideo.streams.get_highest_resolution()
+
+        if ("downloadResolution" in requestBody):
+            downloadResolution = requestBody["downloadResolution"]
+
+        if (downloadResolution is None):
+            videoStream = youtubeVideo.streams.get_highest_resolution()
+        else:
+            videoStream = youtubeVideo.streams.get_by_resolution(
+                downloadResolution)
         videoFileName = videoStream.default_filename
         videoStream.download(f"/tmp/")
         s3.upload_file(f"/tmp/{videoFileName}", "yt-bazra-download-content",

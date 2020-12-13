@@ -36,11 +36,20 @@ custom:
 
 functions:
   downloadThisUrl:
-    handler: backend/apis/handler.downloadThisUrl
+    handler: backend/apis/downloadThisUrl.downloadThisUrl
     timeout: 30 # Cannot be more than 30s as API gateway restricts it ...
     events:
       - http:
           path: /downloadThisUrl
+          method: POST
+          cors: true
+        
+  getAllResolution:
+    handler: backend/apis/getAllResolution.getAllResolution
+    timeout: 30 
+    events:
+      - http:
+          path: /getAllResolution
           method: POST
           cors: true
 
