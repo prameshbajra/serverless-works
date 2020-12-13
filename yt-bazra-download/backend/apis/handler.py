@@ -10,6 +10,10 @@ def downloadThisUrl(event, context):
     '''
     This is the lamba function for POST method which takes in a video URL and returns a s3 download URL.
     '''
+    headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": True,
+    }
     try:
         s3 = boto3.client('s3')
 
@@ -29,10 +33,7 @@ def downloadThisUrl(event, context):
                 'Key': videoFileName
             },
             ExpiresIn=300)
-        headers = {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": True,
-        }
+
         body = {"message": "Success.", "videoDownloadUrl": videoDownloadUrl}
         response = {
             "statusCode": 200,
@@ -42,10 +43,6 @@ def downloadThisUrl(event, context):
         return response
     except Exception as e:
         print(traceback.format_exc())
-        headers = {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": True,
-        }
         return {
             "statusCode": 500,
             "headers": headers,

@@ -38,10 +38,22 @@ export class HomeComponent implements OnInit {
         return this.errorMessage.length > 0;
     }
 
+    checkForAlternativeYoutubeLinks(): void {
+        // If the link is a sharable link of some kind ...
+        try {
+            if (this.urlValue.includes("youtu.be")) {
+                const videoId = this.urlValue.slice(this.urlValue.lastIndexOf("/") + 1);
+                this.urlValue = `https://www.youtube.com/watch?v=${videoId}`;
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async onDownloadClick() {
-        this.errorMessage = "";
         const youtubeRegex = new RegExp("^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+");
         if (youtubeRegex.test(this.urlValue)) {
+            this.checkForAlternativeYoutubeLinks();
             this.isLoading = true;
             const requestBody = {
                 "videoUrl": this.urlValue
@@ -53,12 +65,15 @@ export class HomeComponent implements OnInit {
                 this.urlValue = "";
             }, (error) => {
                 this.urlValue = "";
-                this.isLoading = false;
-                console.error(error);
+                    this.errorMessage = "OOPS! It seems like you cannot download that video. It is restricted from Youtube.";
+                    this.isLoading = false;
             });
         } else {
             this.errorMessage = "Please enter a valid Youtube URL."
         }
+        setTimeout(() => {
+            this.errorMessage = "";
+        }, 5000)
     }
 
 }
