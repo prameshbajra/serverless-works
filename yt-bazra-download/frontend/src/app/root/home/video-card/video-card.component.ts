@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { HttpService } from 'src/app/http.service';
 
 @Component({
     selector: 'app-video-card',
@@ -9,32 +10,47 @@ import { FormControl } from '@angular/forms';
 export class VideoCardComponent implements OnInit {
 
     videoSelectControl = new FormControl();
-    @Input('videoEntities') videoEntities;
+    isLoading: boolean = false;
 
-    videoGroups: any[] = [
-        {
-            name: 'Video',
-            options: [
-                { value: '144p', viewValue: '144p' },
-                { value: '360p', viewValue: '360p' },
-                { value: '480p', viewValue: '480p' },
-                { value: '720p', viewValue: '720p' },
-                { value: '1080p', viewValue: '1080p' }
-            ]
-        },
-        {
+    @Input('videoEntities') videoEntities;
+    @Input('videoUrl') videoUrl;
+
+    videoGroups: any[] = [];
+
+    constructor(private httpService: HttpService) { }
+
+    ngOnInit(): void {
+        this.initiateVideoGroups();
+        this.populateDefaultValues();
+    }
+
+    public initiateVideoGroups(): void {
+        this.videoGroups = [{ name: 'Video', options: [] }]
+        this.videoEntities.resolution.map(res => {
+            this.videoGroups[0]['options'].push({ value: res, viewValue: res })
+        });
+        this.videoGroups.push({
             name: 'Audio',
             options: [
                 { value: 'mp3', viewValue: 'audio (mp3/m4a)' }
             ]
-        }
-    ];
-
-    constructor() { }
-
-    ngOnInit(): void {
-        console.log(this.videoEntities);
+        });
     }
 
+    public populateDefaultValues(): void {
+        this.videoSelectControl.setValue(this.videoGroups[0]['options'][0].value);
+    }
 
+    public downloadVideo(): void {
+        const selectedQuality = this.videoSelectControl.value;
+        const requestBody = {
+            "videoUrl": this.videoUrl,
+            "downloadResolution": selectedQuality
+        };
+        this.httpService.downloadUrlLinkRequest(requestBody).subscribe((response) => {
+            window.open(response.videoDownloadUrl);
+        }, (error) => {
+            console.error(error);
+        });
+    }
 }

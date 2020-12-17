@@ -28,7 +28,7 @@
             {{errorMessage}}
         </div>
         <div [@slideInOut] fxLayout="row" fxLayoutAlign="center center" *ngIf="isDownloadPrepared()">
-            <app-video-card [videoEntities]="videoEntities"></app-video-card>
+            <app-video-card [videoUrl]="urlValue" [videoEntities]="videoEntities"></app-video-card>
         </div>
     </div>
     <div class="contrib-row">

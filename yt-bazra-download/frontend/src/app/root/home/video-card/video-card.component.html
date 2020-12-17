@@ -1,8 +1,8 @@
 <div class="video-card">
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-        <span>Video Title</span>
+    <div fxLayout="row" fxLayoutAlign="space-around center" class="video-card-description">
+        <span>{{videoEntities.videoName}}</span>
         <form>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
                 <mat-label>Download Options</mat-label>
                 <mat-select [formControl]="videoSelectControl">
                     <mat-optgroup *ngFor="let group of videoGroups" [label]="group.name">
@@ -15,6 +15,6 @@
         </form>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" class="video-card-buttons">
-        <button mat-raised-button>Download</button>
+        <button mat-raised-button (click)="downloadVideo()">Download</button>
     </div>
 </div>

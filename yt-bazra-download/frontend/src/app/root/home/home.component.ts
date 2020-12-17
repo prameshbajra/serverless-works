@@ -1,6 +1,7 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from '../../http.service';
+import { VideoCardComponent } from './video-card/video-card.component';
 
 @Component({
     selector: 'app-home',
@@ -9,11 +10,11 @@ import { HttpService } from '../../http.service';
     animations: [
         trigger('slideInOut', [
             transition(':enter', [
-                style({ transform: 'translateY(-100%)' }),
+                style({ transform: 'translateY(-50%)' }),
                 animate('500ms ease-in', style({ transform: 'translateY(0%)' }))
             ]),
             transition(':leave', [
-                animate('500ms ease-in', style({ transform: 'translateY(-100%)' }))
+                animate('500ms ease-in', style({ transform: 'translateY(-50%)' }))
             ])
         ])
     ]
@@ -21,6 +22,7 @@ import { HttpService } from '../../http.service';
 
 export class HomeComponent implements OnInit {
 
+    @ViewChild(VideoCardComponent) videoCardComponent;
     @ViewChild('urlElement') urlElement: ElementRef;
 
     urlValue = "";
@@ -62,7 +64,12 @@ export class HomeComponent implements OnInit {
             }
             this.httpService.getVideoEntities(requestBody).subscribe(result => {
                 this.isLoading = false;
+                this.videoEntities["videoName"] = result["video_name"];
                 this.videoEntities["resolution"] = result["all_resolutions"];
+                if (this.videoCardComponent) {
+                    this.videoCardComponent.initiateVideoGroups();
+                    this.videoCardComponent.populateDefaultValues();
+                }
             }, (error) => {
                 this.urlValue = "";
                     this.errorMessage = "OOPS! It seems like you cannot download that video. It is restricted from Youtube.";

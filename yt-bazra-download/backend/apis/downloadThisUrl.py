@@ -26,7 +26,7 @@ def downloadThisUrl(event, context):
 
         if ("downloadResolution" in requestBody):
             downloadResolution = requestBody["downloadResolution"]
-
+        print("Download Resolution ::: ", downloadResolution)
         if (downloadResolution is None):
             videoStream = youtubeVideo.streams.get_highest_resolution()
         else:

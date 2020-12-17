@@ -1,6 +1,22 @@
 .video-card {
     border     : 1px solid white;
-    margin-top : 5vw;
-    padding-top: 2vw;
-    width      : 80vw;
+    color      : white;
+    margin-top : 3vh;
+    width      : 50vw;
+
+    .video-card-description {
+        margin-top: 2vh;
+    }
+
+    .video-card-buttons {
+        margin-top   : 3vh;
+        margin-bottom: 3vh;
+
+        button {
+            background   : transparent;
+            border       : 1px solid white;
+            border-radius: 0px;
+            width        : 15vw;
+        }
+    }
 }
