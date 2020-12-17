@@ -24,9 +24,6 @@
                 </nz-spin>
             </div>
         </div>
-        <div [@slideInOut] fxLayout="row" fxLayoutAlign="center center" class="error-row" *ngIf="isErrorPreset()">
-            {{errorMessage}}
-        </div>
         <div [@slideInOut] fxLayout="row" fxLayoutAlign="center center" *ngIf="isDownloadPrepared()">
             <app-video-card [videoUrl]="urlValue" [videoEntities]="videoEntities"></app-video-card>
         </div>

@@ -42,14 +42,17 @@ export class VideoCardComponent implements OnInit {
     }
 
     public downloadVideo(): void {
+        this.isLoading = true;
         const selectedQuality = this.videoSelectControl.value;
         const requestBody = {
             "videoUrl": this.videoUrl,
             "downloadResolution": selectedQuality
         };
         this.httpService.downloadUrlLinkRequest(requestBody).subscribe((response) => {
+            this.isLoading = false;
             window.open(response.videoDownloadUrl);
         }, (error) => {
+                this.isLoading = false;
             console.error(error);
         });
     }
