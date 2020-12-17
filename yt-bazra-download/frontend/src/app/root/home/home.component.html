@@ -27,10 +27,13 @@
         <div [@slideInOut] fxLayout="row" fxLayoutAlign="center center" class="error-row" *ngIf="isErrorPreset()">
             {{errorMessage}}
         </div>
+        <div [@slideInOut] fxLayout="row" fxLayoutAlign="center center" *ngIf="isDownloadPrepared()">
+            <app-video-card [videoEntities]="videoEntities"></app-video-card>
+        </div>
     </div>
     <div class="contrib-row">
         <div fxLayout="row" fxLayoutAlign="center center">
-            Made with ❣️ by
+            A serverless ☁️ app by
         </div>
         <div fxLayout="row" fxLayoutAlign="center center">
             <a href="http://prameshbajra.github.io/" target="_blank"> Pramesh Bajracharya</a>

@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     urlValue = "";
     isLoading: boolean = false;
     errorMessage: string = "";
-    videoEntities: any = null;
+    videoEntities: any = {};
 
     constructor(private httpService: HttpService) { }
 
@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit {
             }
             this.httpService.getVideoEntities(requestBody).subscribe(result => {
                 this.isLoading = false;
+                this.videoEntities["resolution"] = result["all_resolutions"];
             }, (error) => {
                 this.urlValue = "";
                     this.errorMessage = "OOPS! It seems like you cannot download that video. It is restricted from Youtube.";
@@ -73,5 +74,16 @@ export class HomeComponent implements OnInit {
         setTimeout(() => {
             this.errorMessage = "";
         }, 7000)
+    }
+
+    isDownloadPrepared(): boolean {
+        try {
+            if (this.videoEntities.resolution.length > 0) {
+                return true;
+            }
+            return false;
+        } catch (error) {
+            return false;
+        }
     }
 }

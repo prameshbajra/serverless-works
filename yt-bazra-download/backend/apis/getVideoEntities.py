@@ -24,6 +24,7 @@ def getVideoEntities(event, context):
                 all_resolutions.add(stream.resolution)
         body = {
             "message": "Success.",
+            "video_name": videoStreams[0].default_filename,
             "all_resolutions": list(all_resolutions)
         }
         response = {

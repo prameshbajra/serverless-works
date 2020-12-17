@@ -44,7 +44,7 @@ functions:
           method: POST
           cors: true
         
-  getAllResolution:
+  getVideoEntities:
     handler: backend/apis/getVideoEntities.getVideoEntities
     timeout: 30 
     events:
