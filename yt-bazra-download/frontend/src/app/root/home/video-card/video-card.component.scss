@@ -1,23 +1,24 @@
 .video-card {
-    border     : 1px solid white;
-    color      : white;
-    margin-top : 3vh;
-    width      : 50vw;
+  color: white;
+  margin-top: 5vh;
+  width: 50vw;
 
-    .video-card-description {
-        margin-top: 2vh;
-        word-break: break-all;
+  .video-card-description {
+    margin-top: 2vh;
+
+    mat-form-field {
+      width: 20vw;
     }
+  }
 
-    .video-card-buttons {
-        margin-top   : 3vh;
-        margin-bottom: 3vh;
+  .video-card-buttons {
+    margin-top: 3vh;
+    margin-bottom: 3vh;
 
-        button {
-            background   : transparent;
-            border       : 1px solid white;
-            border-radius: 0px;
-            width        : 15vw;
-        }
+    button {
+      background: transparent;
+      border: 1px solid white;
+      border-radius: 0px;
     }
+  }
 }
