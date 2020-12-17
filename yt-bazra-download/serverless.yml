@@ -45,11 +45,11 @@ functions:
           cors: true
         
   getAllResolution:
-    handler: backend/apis/getAllResolution.getAllResolution
+    handler: backend/apis/getVideoEntities.getVideoEntities
     timeout: 30 
     events:
       - http:
-          path: /getAllResolution
+          path: /getVideoEntities
           method: POST
           cors: true
 

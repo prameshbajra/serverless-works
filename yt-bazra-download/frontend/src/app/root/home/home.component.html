@@ -13,12 +13,12 @@
             <div fxLayout="row" fxLayoutAlign="center center" class="url-field-items">
                 <nz-spin [nzSpinning]="isLoading">
                     <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-                        <input type="text" nz-input #urlElement [(ngModel)]="urlValue" (keyup.enter)="onDownloadClick()" />
+                        <input type="text" nz-input #urlElement [(ngModel)]="urlValue" (keyup.enter)="onGoClick()" />
                     </nz-input-group>
                     <ng-template #suffixButton>
                         <button nz-button nzType="primary" nzSize="large" nzSearch class="download-button"
-                            (click)="onDownloadClick()">
-                            Download
+                            (click)="onGoClick()">
+                            Go
                         </button>
                     </ng-template>
                 </nz-spin>
@@ -27,13 +27,13 @@
         <div [@slideInOut] fxLayout="row" fxLayoutAlign="center center" class="error-row" *ngIf="isErrorPreset()">
             {{errorMessage}}
         </div>
+    </div>
+    <div class="contrib-row">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            Made with ❣️ by
         </div>
-        <div class="contrib-row">
-            <div fxLayout="row" fxLayoutAlign="center center">
-                Made with ❣️ by
-            </div>
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <a href="http://prameshbajra.github.io/" target="_blank"> Pramesh Bajracharya</a>
-            </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <a href="http://prameshbajra.github.io/" target="_blank"> Pramesh Bajracharya</a>
         </div>
+    </div>
 </div>

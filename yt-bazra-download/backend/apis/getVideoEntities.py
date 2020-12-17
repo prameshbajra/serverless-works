@@ -4,7 +4,7 @@ import traceback
 from pytube import YouTube, Stream
 
 
-def getAllResolution(event, context):
+def getVideoEntities(event, context):
     '''
     Lambda to get in video URL and response with resolutions available.
     '''

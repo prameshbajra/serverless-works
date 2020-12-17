@@ -1,60 +1,59 @@
 .home-container {
-  .main-content {
-    min-height: calc(100vh - 60px);
+    .main-content {
+        min-height: calc(100vh - 60px);
 
-    .application-details-row {
-      h1 {
-        color: white;
-        font-size: 4em;
-        text-decoration: overline;
-      }
+        .application-details-row {
+            h1 {
+                color : white;
+                font-size : 4em;
+                text-decoration: overline;
+            }
+        }
+
+        .image-row {
+            img {
+                height : 200px;
+            }
+        }
+
+        .text-items {
+            margin-bottom: 1%;
+            font-size : 18px;
+            color     : white;
+        }
+
+        .url-field-items {
+            width: 51%;
+
+            input {
+                background : transparent;
+                border-color: white;
+                color     : white;
+                max-width : 700px;
+                width     : 70vw;
+            }
+
+            .download-button {
+                background: white;
+                border : 1px solid white;
+                color  : #868686;
+                min-width: 10vw;
+            }
+        }
+
+        .error-row {
+            color : white;
+            margin-top: 1%;
+        }
     }
 
-    .image-row {
-      img {
-        margin-top: 5vh;
-        height: 200px;
-      }
+    .contrib-row {
+        bottom: 0;
+        color : white;
+
+        a {
+            color : white;
+            text-decoration: underline;
+        }
     }
-
-    .text-items {
-      margin-bottom: 1%;
-      font-size: 18px;
-      color: white;
-    }
-
-    .url-field-items {
-      width: 51%;
-
-      input {
-        background: transparent;
-        border-color: white;
-        color: white;
-        max-width: 700px;
-        width: 70vw;
-      }
-
-      .download-button {
-        background: white;
-        color: #868686;
-        border: 1px solid white;
-      }
-    }
-
-    .error-row {
-      color: white;
-      margin-top: 1%;
-    }
-  }
-
-  .contrib-row {
-    bottom: 0;
-    color: white;
-
-    a {
-      color: white;
-      text-decoration: underline;
-    }
-  }
 }
-

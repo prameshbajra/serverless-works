@@ -5,7 +5,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+
 
 
 
@@ -18,6 +20,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
         NzIconModule,
         NzInputModule,
         NzLayoutModule,
+        NzSelectModule,
         NzSpinModule
     ],
     exports: [
@@ -26,6 +29,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
         NzIconModule,
         NzInputModule,
         NzLayoutModule,
+        NzSelectModule,
         NzSpinModule
     ]
 })

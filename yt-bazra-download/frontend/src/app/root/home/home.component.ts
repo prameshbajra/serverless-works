@@ -18,6 +18,7 @@ import { HttpService } from '../../http.service';
         ])
     ]
 })
+
 export class HomeComponent implements OnInit {
 
     @ViewChild('urlElement') urlElement: ElementRef;
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
     urlValue = "";
     isLoading: boolean = false;
     errorMessage: string = "";
+    videoEntities: any = null;
 
     constructor(private httpService: HttpService) { }
 
@@ -50,7 +52,7 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    async onDownloadClick() {
+    onGoClick() {
         const youtubeRegex = new RegExp("^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+");
         if (youtubeRegex.test(this.urlValue)) {
             this.checkForAlternativeYoutubeLinks();
@@ -58,11 +60,8 @@ export class HomeComponent implements OnInit {
             const requestBody = {
                 "videoUrl": this.urlValue
             }
-            this.httpService.downloadUrlLinkRequest(requestBody).subscribe(result => {
-                const downloadUrl = result["videoDownloadUrl"];
-                window.open(downloadUrl, "_blank");
+            this.httpService.getVideoEntities(requestBody).subscribe(result => {
                 this.isLoading = false;
-                this.urlValue = "";
             }, (error) => {
                 this.urlValue = "";
                     this.errorMessage = "OOPS! It seems like you cannot download that video. It is restricted from Youtube.";
@@ -73,7 +72,6 @@ export class HomeComponent implements OnInit {
         }
         setTimeout(() => {
             this.errorMessage = "";
-        }, 5000)
+        }, 7000)
     }
-
 }

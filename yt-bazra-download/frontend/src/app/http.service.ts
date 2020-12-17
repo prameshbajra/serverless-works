@@ -7,11 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
 
-    private BACKEND_URL = "https://kmi3qdcq3b.execute-api.ap-south-1.amazonaws.com/dev/downloadThisUrl";
+    private BACKEND_URL = "https://kmi3qdcq3b.execute-api.ap-south-1.amazonaws.com/dev/";
 
     constructor(private http: HttpClient) { }
 
+    public getVideoEntities(requestBody: any): Observable<any> {
+        return this.http.post(`${this.BACKEND_URL}getVideoEntities`, requestBody);
+    }
+
     public downloadUrlLinkRequest(requestBody: any): Observable<any> {
-        return this.http.post(this.BACKEND_URL, requestBody);
+        return this.http.post(`${this.BACKEND_URL}downloadThisUrl`, requestBody);
     }
 }
