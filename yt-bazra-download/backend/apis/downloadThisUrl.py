@@ -26,12 +26,14 @@ def downloadThisUrl(event, context):
 
         if ("downloadResolution" in requestBody):
             downloadResolution = requestBody["downloadResolution"]
-        print("Download Resolution ::: ", downloadResolution)
+
         if (downloadResolution is None):
             videoStream = youtubeVideo.streams.get_highest_resolution()
         else:
             videoStream = youtubeVideo.streams.get_by_resolution(
                 downloadResolution)
+            if (videoStream is None):
+                videoStream = youtubeVideo.streams.get_lowest_resolution()
         videoFileName = videoStream.default_filename
         videoStream.download(f"/tmp/")
         s3.upload_file(f"/tmp/{videoFileName}", "yt-bazra-download-content",
