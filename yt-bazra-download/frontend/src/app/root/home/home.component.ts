@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
 
     urlValue = "";
     isLoading: boolean = false;
+    errorMessage: string = "";
     videoEntities: any = {};
 
     constructor(private httpService: HttpService) { }
@@ -35,6 +36,10 @@ export class HomeComponent implements OnInit {
         setTimeout(() => {
             this.urlElement.nativeElement.focus();
         }, 300);
+    }
+
+    isErrorPreset(): boolean {
+        return this.errorMessage.length > 0;
     }
 
     checkForAlternativeYoutubeLinks(): void {
@@ -66,10 +71,16 @@ export class HomeComponent implements OnInit {
                     this.videoCardComponent.populateDefaultValues();
                 }
             }, (error) => {
-                    this.urlValue = "";
+                this.urlValue = "";
+                    this.errorMessage = "OOPS! It seems like you cannot download that video. It is restricted from Youtube.";
                     this.isLoading = false;
             });
-        } 
+        } else {
+            this.errorMessage = "Please enter a valid Youtube URL."
+        }
+        setTimeout(() => {
+            this.errorMessage = "";
+        }, 7000)
     }
 
     isDownloadPrepared(): boolean {

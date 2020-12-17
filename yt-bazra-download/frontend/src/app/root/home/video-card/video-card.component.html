@@ -1,4 +1,4 @@
-<div class="video-card">
+<div class="video-card" *ngIf="!isErrorPresent()">
     <nz-spin [nzSpinning]="isLoading">
         <div fxLayout="row" fxLayoutAlign="space-around center" class="video-card-description">
             <span>{{videoEntities.videoName}}</span>
@@ -19,4 +19,7 @@
             <button mat-raised-button (click)="downloadVideo()">Download</button>
         </div>
     </nz-spin>
+</div>
+<div *ngIf="isErrorPresent()">
+    <span>{{errorMessage}}</span>
 </div>

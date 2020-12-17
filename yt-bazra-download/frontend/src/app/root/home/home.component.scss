@@ -12,7 +12,7 @@
 
         .image-row {
             img {
-                height : 200px;
+                height: 200px;
             }
         }
 
@@ -37,8 +37,13 @@
                 background: white;
                 border : 1px solid white;
                 color  : #868686;
-                min-width: 10vw;
+                min-width : 10vw;
             }
+        }
+
+        .error-row {
+            color: white;
+            margin-top: 1%;
         }
     }
 
