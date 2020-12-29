@@ -15,6 +15,11 @@ export class HttpService {
         return this.http.post(`${this.BACKEND_URL}getVideoEntities`, requestBody);
     }
 
+    public downloadAudioForThisUrl(requestBody: any): Observable<any> {
+        return this.http.post(`${this.BACKEND_URL}downloadAudioForThisUrl`, requestBody);
+    }
+
+
     public downloadUrlLinkRequest(requestBody: any): Observable<any> {
         return this.http.post(`${this.BACKEND_URL}downloadThisUrl`, requestBody);
     }

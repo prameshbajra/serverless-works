@@ -51,9 +51,13 @@ export class VideoCardComponent implements OnInit {
         this.videoSelectControl.setValue(this.videoGroups[0]['options'][0].value);
     }
 
-    public downloadVideo(): void {
+    public downloadOnClick(): void {
         this.isLoading = true;
         const selectedQuality = this.videoSelectControl.value;
+        if (selectedQuality === "mp3") {
+            this.downloadAudio();
+            return;
+        }
         const requestBody = {
             "videoUrl": this.videoUrl,
             "downloadResolution": selectedQuality
@@ -62,8 +66,22 @@ export class VideoCardComponent implements OnInit {
             this.isLoading = false;
             window.open(response.videoDownloadUrl);
         }, (error) => {
-                this.isLoading = false;
-                this.errorMessage = "Sorry, this video is restricted from YouTube and cannot be downloaded.";
+            this.isLoading = false;
+            this.errorMessage = "Sorry, this video is restricted from YouTube and cannot be downloaded.";
+            console.error(error);
+        });
+    }
+
+    public downloadAudio(): void {
+        const requestBody = {
+            "videoUrl": this.videoUrl
+        };
+        this.httpService.downloadAudioForThisUrl(requestBody).subscribe((response) => {
+            this.isLoading = false;
+            window.open(response.audioDownloadUrl);
+        }, (error) => {
+            this.isLoading = false;
+            this.errorMessage = "Sorry, this video is restricted from YouTube and cannot be downloaded.";
             console.error(error);
         });
     }

@@ -35,7 +35,7 @@ def downloadAudioForThisUrl(event, context):
             },
             ExpiresIn=300)
 
-        body = {"message": "Success.", "videoDownloadUrl": audioDownloadUrl}
+        body = {"message": "Success.", "audioDownloadUrl": audioDownloadUrl}
         response = {
             "statusCode": 200,
             "headers": headers,
