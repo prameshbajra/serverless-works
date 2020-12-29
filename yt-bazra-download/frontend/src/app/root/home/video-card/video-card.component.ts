@@ -39,12 +39,12 @@ export class VideoCardComponent implements OnInit {
             this.videoGroups[0]['options'].push({ value: res, viewValue: res })
         });
         // When audio feature is released...
-        // this.videoGroups.push({
-        //     name: 'Audio',
-        //     options: [
-        //         { value: 'mp3', viewValue: 'audio (mp3/m4a)' }
-        //     ]
-        // });
+        this.videoGroups.push({
+            name: 'Audio',
+            options: [
+                { value: 'mp3', viewValue: 'audio (mp3/m4a)' }
+            ]
+        });
     }
 
     public populateDefaultValues(): void {

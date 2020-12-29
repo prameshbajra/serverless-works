@@ -43,6 +43,15 @@ functions:
           path: /downloadThisUrl
           method: POST
           cors: true
+
+  downloadAudioForThisUrl:
+    handler: backend/apis/downloadAudioForThisUrl.downloadAudioForThisUrl
+    timeout: 30 # Cannot be more than 30s as API gateway restricts it ...
+    events:
+      - http:
+          path: /downloadAudioForThisUrl
+          method: POST
+          cors: true
         
   getVideoEntities:
     handler: backend/apis/getVideoEntities.getVideoEntities
