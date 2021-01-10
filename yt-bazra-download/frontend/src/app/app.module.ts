@@ -14,6 +14,8 @@ import { MaterialModule } from './material/material.module';
 import { HomeComponent } from './root/home/home.component';
 import { RootComponent } from './root/root.component';
 import { VideoCardComponent } from './root/home/video-card/video-card.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 
@@ -35,7 +37,8 @@ registerLocaleData(en);
       ReactiveFormsModule,
       MaterialModule,
       HttpClientModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
     providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
