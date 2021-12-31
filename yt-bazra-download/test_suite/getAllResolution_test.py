@@ -1,5 +1,5 @@
 import json
-from backend.apis.getAllResolution import getAllResolution
+from backend.apis.getVideoEntities import getVideoEntities
 
 
 def run_test():
@@ -10,7 +10,7 @@ def run_test():
             "https://www.youtube.com/watch?v=a3TdQFV4y8k&ab_channel=FinnovationZUpdates"
         })
     }
-    result = getAllResolution(fake_event, None)
+    result = getVideoEntities(fake_event, None)
     print(result)
 
 
