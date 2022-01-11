@@ -22,3 +22,4 @@ var/
 # others
 *node_modules*
 venv/*
+*.pyc
