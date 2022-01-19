@@ -1,5 +1,10 @@
 # Steps to follow/ Gotchas / Things to keep in mind:
 
+### For running it locally and testing:
+```
+export PYTHONPATH="/Users/prameshbajracharya/lecodage/personalworks/serverless-works/yt-bazra-download"
+```
+
 ### Deployment:
 
 **To deploy the UI :**
