@@ -3,7 +3,7 @@ frameworkVersion: "2"
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.6
   region: ap-south-1
   versionFunctions: false
   iamRoleStatements:
@@ -32,7 +32,10 @@ custom:
     errorDocument: index.html
 
   pythonRequirements:
-    dockerizePip: non-linux
+    dockerizePip: true
+    dockerFile: Dockerfile
+    dockerBuildCmdExtraArgs: ["--platform", "linux/arm64/v8"]
+    dockerRunCmdExtraArgs: ["--platform", "linux/arm64/v8"]
 
 functions:
   downloadThisUrl:
