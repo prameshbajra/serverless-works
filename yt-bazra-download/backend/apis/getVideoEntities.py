@@ -1,7 +1,7 @@
 import json
 import traceback
 
-from pytube import YouTube, Stream
+from backend.apis.youtube_utils import get_video_entities
 
 
 def getVideoEntities(event, context):
@@ -16,16 +16,12 @@ def getVideoEntities(event, context):
     try:
         requestBody = json.loads(event["body"])
         videoUrl = requestBody["videoUrl"]
-        youtubeVideo = YouTube(videoUrl)
-        videoStreams = youtubeVideo.streams
-        all_resolutions = set()
-        for stream in videoStreams:
-            if (stream.resolution is not None):
-                all_resolutions.add(stream.resolution)
+        videoEntities = get_video_entities(videoUrl)
+
         body = {
             "message": "Success.",
-            "video_name": videoStreams[0].default_filename,
-            "all_resolutions": list(all_resolutions)
+            "video_name": videoEntities["video_name"],
+            "all_resolutions": videoEntities["all_resolutions"]
         }
         response = {
             "statusCode": 200,

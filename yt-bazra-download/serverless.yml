@@ -1,9 +1,9 @@
 service: yt-bazra-download
-frameworkVersion: "2"
+frameworkVersion: "4"
 
 provider:
   name: aws
-  runtime: python3.6
+  runtime: python3.11
   region: ap-south-1
   versionFunctions: false
   iamRoleStatements:
@@ -34,8 +34,8 @@ custom:
   pythonRequirements:
     dockerizePip: true
     dockerFile: Dockerfile
-    dockerBuildCmdExtraArgs: ["--platform", "linux/arm64/v8"]
-    dockerRunCmdExtraArgs: ["--platform", "linux/arm64/v8"]
+    dockerBuildCmdExtraArgs: ["--platform", "linux/amd64"]
+    dockerRunCmdExtraArgs: ["--platform", "linux/amd64"]
 
 functions:
   downloadThisUrl:

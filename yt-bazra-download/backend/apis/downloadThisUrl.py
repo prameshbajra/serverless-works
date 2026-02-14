@@ -1,9 +1,8 @@
-import io
 import json
 import boto3
 import traceback
 
-from pytube import YouTube, Stream
+from backend.apis.youtube_utils import download_video_to_tmp
 
 
 def downloadThisUrl(event, context):
@@ -20,24 +19,10 @@ def downloadThisUrl(event, context):
 
         requestBody = json.loads(event["body"])
         videoUrl = requestBody["videoUrl"]
-        downloadResolution = None
+        downloadResolution = requestBody.get("downloadResolution")
 
-        youtubeVideo = YouTube(videoUrl)
-
-        if ("downloadResolution" in requestBody):
-            downloadResolution = requestBody["downloadResolution"]
-
-        if (downloadResolution is None):
-            videoStream = youtubeVideo.streams.get_highest_resolution()
-        else:
-            videoStream = youtubeVideo.streams.get_by_resolution(
-                downloadResolution)
-            if (videoStream is None):
-                videoStream = youtubeVideo.streams.get_lowest_resolution()
-        videoFileName = videoStream.default_filename
-        videoStream.download(f"/tmp/")
-        s3.upload_file(f"/tmp/{videoFileName}", "yt-bazra-download-content",
-                       videoFileName)
+        videoFilePath, videoFileName = download_video_to_tmp(videoUrl, downloadResolution)
+        s3.upload_file(videoFilePath, "yt-bazra-download-content", videoFileName)
         videoDownloadUrl = s3.generate_presigned_url(
             'get_object',
             Params={

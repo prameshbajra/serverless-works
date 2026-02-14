@@ -1,9 +1,8 @@
-import io
 import json
 import boto3
 import traceback
 
-from pytube import YouTube, Stream
+from backend.apis.youtube_utils import download_audio_to_tmp
 
 
 def downloadAudioForThisUrl(event, context):
@@ -19,13 +18,9 @@ def downloadAudioForThisUrl(event, context):
         s3 = boto3.client('s3')
         requestBody = json.loads(event["body"])
         videoUrl = requestBody["videoUrl"]
-        youtubeVideo = YouTube(videoUrl)
+        audioFilePath, audioFileName = download_audio_to_tmp(videoUrl)
 
-        audioStream = youtubeVideo.streams.filter(only_audio=True).all()[0]
-        audioFileName = audioStream.default_filename
-        audioStream.download(f"/tmp/")
-
-        s3.upload_file(f"/tmp/{audioFileName}", "yt-bazra-download-content", audioFileName)
+        s3.upload_file(audioFilePath, "yt-bazra-download-content", audioFileName)
 
         audioDownloadUrl = s3.generate_presigned_url(
             'get_object',
