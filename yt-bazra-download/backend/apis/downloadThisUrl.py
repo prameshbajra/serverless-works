@@ -2,7 +2,7 @@ import json
 import boto3
 import traceback
 
-from backend.apis.youtube_utils import download_video_to_tmp
+from backend.apis.youtube_utils import download_video_to_tmp, YouTubeAccessError
 
 
 def downloadThisUrl(event, context):
@@ -38,6 +38,18 @@ def downloadThisUrl(event, context):
             "body": json.dumps(body)
         }
         return response
+    except YouTubeAccessError as e:
+        body = {
+            "message": (
+                "This video currently requires YouTube sign-in verification "
+                "and cannot be downloaded anonymously."
+            )
+        }
+        return {
+            "statusCode": 403,
+            "headers": headers,
+            "body": json.dumps(body)
+        }
     except Exception as e:
         print(traceback.format_exc())
         return {

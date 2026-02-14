@@ -6,6 +6,8 @@ provider:
   runtime: python3.11
   region: ap-south-1
   versionFunctions: false
+  environment:
+    YTDLP_COOKIES_B64: ${env:YTDLP_COOKIES_B64, ''}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -18,8 +20,13 @@ package:
   individually: true
   exclude:
       - node_modules/**
-      - frontend/node_modules/**
+      - frontend/**
       - venv/**
+      - .venv/**
+      - test_suite/**
+      - .serverless/**
+      - .git/**
+      - __pycache__/**
 
 plugins:
   - serverless-finch
@@ -36,11 +43,24 @@ custom:
     dockerFile: Dockerfile
     dockerBuildCmdExtraArgs: ["--platform", "linux/amd64"]
     dockerRunCmdExtraArgs: ["--platform", "linux/amd64"]
+    invalidateCaches: true
+    useStaticCache: false
+    useDownloadCache: false
+    slim: true
+    strip: false
+    noDeploy:
+      - boto3
+      - botocore
+      - jmespath
+      - s3transfer
+      - python-dateutil
+      - urllib3
+      - six
 
 functions:
   downloadThisUrl:
     handler: backend/apis/downloadThisUrl.downloadThisUrl
-    timeout: 30 # Cannot be more than 30s as API gateway restricts it ...
+    timeout: 29 # API Gateway hard limit for Lambda proxy integrations
     events:
       - http:
           path: /downloadThisUrl
@@ -49,7 +69,7 @@ functions:
 
   downloadAudioForThisUrl:
     handler: backend/apis/downloadAudioForThisUrl.downloadAudioForThisUrl
-    timeout: 30 # Cannot be more than 30s as API gateway restricts it ...
+    timeout: 29 # API Gateway hard limit for Lambda proxy integrations
     events:
       - http:
           path: /downloadAudioForThisUrl
@@ -58,7 +78,7 @@ functions:
         
   getVideoEntities:
     handler: backend/apis/getVideoEntities.getVideoEntities
-    timeout: 30 
+    timeout: 29
     events:
       - http:
           path: /getVideoEntities

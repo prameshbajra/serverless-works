@@ -1,7 +1,7 @@
 import json
 import traceback
 
-from backend.apis.youtube_utils import get_video_entities
+from backend.apis.youtube_utils import get_video_entities, YouTubeAccessError
 
 
 def getVideoEntities(event, context):
@@ -29,6 +29,18 @@ def getVideoEntities(event, context):
             "body": json.dumps(body)
         }
         return response
+    except YouTubeAccessError as e:
+        body = {
+            "message": (
+                "This video currently requires YouTube sign-in verification "
+                "and cannot be fetched anonymously."
+            )
+        }
+        return {
+            "statusCode": 403,
+            "headers": headers,
+            "body": json.dumps(body)
+        }
     except Exception as e:
         print(traceback.format_exc())
         return {
